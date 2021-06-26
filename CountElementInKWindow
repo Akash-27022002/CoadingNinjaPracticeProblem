@@ -1,0 +1,29 @@
+// Count Distinct Element in Every K Size Window
+
+import java.util.*;
+
+public class Solution {
+
+	public static ArrayList<Integer> countDistinctElements(ArrayList<Integer> arr, int k) {
+		// Write your code here
+        ArrayList<Integer> num = new ArrayList<Integer>();
+        Map<Integer,Integer>x = new HashMap<>();
+        for(int j=0;j<k;j++){
+            /* if(x.containsKey(arr.get(j)))
+                  x.put(arr.get(j),x.get(arr.get(j))+1);
+             else x.put(arr.get(j),1);  */
+            x.put(arr.get(j), x.getOrDefault(arr.get(j), 0) + 1);
+           }
+         num.add(x.size());
+        for(int j=k;j<arr.size();j++){
+            if(x.get(arr.get(j-k))==1) x.remove(arr.get(j-k));
+            else x.put(arr.get(j-k),x.get(arr.get(j-k))-1);
+           /* if(x.containsKey(arr.get(j)))
+                  x.put(arr.get(j),x.get(arr.get(j))+1);
+            else x.put(arr.get(j),1);*/
+            x.put(arr.get(j), x.getOrDefault(arr.get(j), 0) + 1);
+            num.add(x.size());
+        }       
+        return num;
+	}
+}
